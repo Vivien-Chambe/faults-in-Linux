@@ -12,8 +12,10 @@ PATTERNS=block1a block1b block1c var isnull5 null_ref6 copy get  \
 #HERODOTOS is set locally or automatically find by `which`
 -include ../Makefile.local
 
+
 HFLAGS=--hacks --diff hybrid $(PATT)
 HOST=$(shell uname -n | cut -f1 -d"." | tr '-' '_')
+GRID5000=grid5000
 PWD=$(shell pwd)
 DIR=$(shell basename $(PWD))
 NEW=$(PATTERNS:%=results/linuxes/Linux_%.new.org)
@@ -23,7 +25,7 @@ include /usr/local/share/herodotos/Makefile.inc
 .PHONY:: fix-bossa fix-palace fix-cluster pack exist.tbz2
 
 $(CONF): $(CONF).base
-	 cpp -P -undef -D$(HOST) $(@:%=%.base) > $@
+	 cpp -P -undef -D$(HOST) -D$(GRID5000) $(@:%=%.base) > $@
 fix-mc4:
 	for f in `find results/ -name "*.org"`; do sed -i "s|/var/linuxes|/scratch/linuxes|g" $$f ; done
 

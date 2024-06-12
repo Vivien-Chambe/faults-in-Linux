@@ -2,7 +2,9 @@ prefix="."
 patterns="./cocci"
 #ifdef big
 projects="/home/npalix"
-#elif erods_mc_4
+#elif erods_mc_4 
+projects="/fast_scratch"
+#elif grid5000
 projects="/fast_scratch"
 #else
 projects="/var"
@@ -10,19 +12,17 @@ projects="/var"
 results="./results"
 website="./web"
 dbconn="dbname='atocs' host='localhost' port='5432'"
-findcmd="spatch.opt %f -sp_file %p -dir %d 2> %b.log > %o"
-flags="-timeout 90 -use_glimpse"
+findcmd="spatch %f -sp_file %p -dir %d 2> %b.log > %o"
+flags="-timeout 90 "
 //cpucore=1
 
 project Linux {
-
- local_scm = "git:linux-full/.git"
+ local_scm = "git:linux-git/.git"
  dir = linuxes
  color = 1 0 0
  linestyle = solid
  marktype = none
-// versions = "^v\(2\.6\.[0-9]+|3\.[0-9]+\)$"
- versions = "linux-{2.6,3}.*"
+ versions = "linux-6.*"
 }
 
 pattern ret6 {
